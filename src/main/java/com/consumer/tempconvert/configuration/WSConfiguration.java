@@ -1,12 +1,13 @@
 package com.consumer.tempconvert.configuration;
 
 import com.consumer.tempconvert.client.CelsiusToFahrenheitClient;
+import com.consumer.tempconvert.client.FahrenheitToCelsiusClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 @Configuration
-public class SubtractConfiguration {
+public class WSConfiguration {
 
     @Bean
     public Jaxb2Marshaller marshaller() {
@@ -19,6 +20,15 @@ public class SubtractConfiguration {
     @Bean
     public CelsiusToFahrenheitClient celsiusToFahrenheitClient(Jaxb2Marshaller marshaller) {
         CelsiusToFahrenheitClient client = new CelsiusToFahrenheitClient();
+        client.setDefaultUri("https://www.w3schools.com/xml/tempconvert.asmx?WSDL");
+        client.setMarshaller(marshaller);
+        client.setUnmarshaller(marshaller);
+        return client;
+    }
+
+    @Bean
+    public FahrenheitToCelsiusClient fahrenheitToCelsiusClient(Jaxb2Marshaller marshaller) {
+        FahrenheitToCelsiusClient client = new FahrenheitToCelsiusClient();
         client.setDefaultUri("https://www.w3schools.com/xml/tempconvert.asmx?WSDL");
         client.setMarshaller(marshaller);
         client.setUnmarshaller(marshaller);

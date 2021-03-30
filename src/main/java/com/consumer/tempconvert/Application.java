@@ -1,7 +1,9 @@
 package com.consumer.tempconvert;
 
 import com.consumer.tempconvert.client.CelsiusToFahrenheitClient;
+import com.consumer.tempconvert.client.FahrenheitToCelsiusClient;
 import com.example.test.wsdl.CelsiusToFahrenheitResponse;
+import com.example.test.wsdl.FahrenheitToCelsiusResponse;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,12 +21,23 @@ public class Application {
 
 	//Here testing remplace sCelsius for any value String number.
 	@Bean
-	CommandLineRunner setupInitial(CelsiusToFahrenheitClient celsiusToFahrenheitClient) {
+	CommandLineRunner setupConvertCelsiusToFahrenheit(CelsiusToFahrenheitClient celsiusToFahrenheitClient) {
 		return args -> {
 			String sCelsius = "18";
 			CelsiusToFahrenheitResponse response = celsiusToFahrenheitClient.celsiusToFahrenheitResponse(sCelsius);
 			System.out.println("Response => " + response.getCelsiusToFahrenheitResult());
 		};
 	}
+
+	//Converter
+	@Bean
+	CommandLineRunner setupConverterFahrenheitToCelsius(FahrenheitToCelsiusClient fahrenheitToCelsiusClient) {
+		return args -> {
+			String sFahrenheit = "7";
+			FahrenheitToCelsiusResponse response = fahrenheitToCelsiusClient.fahrenheitToCelsiusResponse(sFahrenheit);
+			System.out.println("Response => " + response.getFahrenheitToCelsiusResult());
+		};
+	}
+
 
 }
